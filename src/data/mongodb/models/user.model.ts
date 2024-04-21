@@ -30,10 +30,10 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.method("toJSON", function () {
+/* userSchema.method("toJSON", function () {
   const { _id, ...object } = this.toObject();
   object.id = _id;
   return object;
-});
+}); */
 
 export const UserModel = mongoose.model("User", userSchema);

@@ -14,10 +14,10 @@ const countrySchema = new Schema({
   },
 });
 
-countrySchema.method("toJSON", function () {
+/* countrySchema.method("toJSON", function () {
   const { _id, ...object } = this.toObject();
   object.id = _id;
   return object;
-});
+}); */
 
 export const CountryModel = mongoose.model("Country", countrySchema);

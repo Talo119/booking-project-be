@@ -6,6 +6,10 @@ const countrySchema = new Schema({
     required: [true, "Name is required"],
     unique: true,
   },
+  currency:{
+    type: String,
+    required: [true, 'Currendy is required'],
+  },
   area: {
     type: String,
   },

@@ -31,16 +31,71 @@ export class CountryDataSourceImpl implements CountryDataSource {
       throw CustomError.internalServer();
     }
   }
-  getAll(): Promise<CountryEntity[]> {
-    throw new Error("Method not implemented.");
+  async getAll(): Promise<CountryEntity[]> {
+    try {
+      const countrys = await CountryModel.find({});
+
+      return countrys.map((country) =>
+        CountryMapper.CountryEntityFromObject(country)
+      );
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
   }
-  getById(id: string): Promise<CountryEntity> {
-    throw new Error("Method not implemented.");
+  async getById(id: string): Promise<CountryEntity> {
+    try {
+      const country = await CountryModel.findById(id).exec();
+
+      if (!country)
+        throw CustomError.badRequest(`Country with id ${id} not found.`);
+
+      return CountryMapper.CountryEntityFromObject(country);
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
   }
-  updateById(updateCountryDto: UpdateCountryDto): Promise<CountryEntity> {
-    throw new Error("Method not implemented.");
+  async updateById(updateCountryDto: UpdateCountryDto): Promise<CountryEntity> {
+    try {
+      const id = updateCountryDto.id;
+      const country = await CountryModel.findById(id).exec();
+      if (!country)
+        throw CustomError.badRequest(`Country with id ${id} not found.`);
+
+      const countryUpdated = await CountryModel.findByIdAndUpdate(id, updateCountryDto, {returnDocument: 'after'});
+      console.log(typeof countryUpdated);
+      // TODO: check was countryUpdated return, to create a correct mapper.
+      return CountryMapper.CountryEntityFromObject(countryUpdated);
+
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
   }
-  deleteById(id: string): Promise<CountryEntity> {
-    throw new Error("Method not implemented.");
+  async deleteById(id: string): Promise<CountryEntity> {
+    try {
+      const country = await CountryModel.findById(id).exec();
+
+      if (!country)
+        throw CustomError.badRequest(`Country with id ${id} not found.`);
+
+      const deletedCountry = await CountryModel.findByIdAndDelete(id);
+
+      // TODO: check was deletedCountry return, to create a correct mapper.
+      return CountryMapper.CountryEntityFromObject(country);
+
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
   }
 }

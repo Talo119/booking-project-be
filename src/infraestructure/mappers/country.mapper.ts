@@ -1,10 +1,13 @@
 import { CountryEntity, CustomError } from "../../domain";
 
 export class CountryMapper {
-  static CountryEntityFromObject(object: { [key: string]: any }) {
+  static CountryEntityFromObject(object: { [key: string]: any } | null) {
+    if (!object) {
+      throw CustomError.badRequest('Updated is null');
+    }
     const { id, _id, name, currency, area, locale } = object;
-
-    if(!id || !_id){
+    
+    if( !_id && !id){
         throw CustomError.badRequest('Missing id');
     }
 

@@ -16,8 +16,23 @@ export class AuthController {
     return res.status(500).json({ error: "Internal server error" });
   };
 
-  getUsers = (req: Request, res: Response) => {
-    res.json("Get users");
+  public getUsers = async (req: Request, res: Response) => {
+    const users = await this.authRepository.getAllUsers();
+    return res.json(users);
+  };
+
+  public getUserById = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const user = await this.authRepository.getUserById(id);
+        res.json(user);
+
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
   };
 
   registerUser = (req: Request, res: Response) => {

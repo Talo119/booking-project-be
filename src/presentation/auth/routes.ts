@@ -12,6 +12,7 @@ export class AuthRoutes {
         const controller = new AuthController(authRepository);
 
         router.get('/', controller.getUsers);
+        router.get('/:id', controller.getUserById);
         router.post('/register', controller.registerUser);
 
         return router;

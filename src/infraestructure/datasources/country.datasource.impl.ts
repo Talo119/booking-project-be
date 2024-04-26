@@ -67,11 +67,14 @@ export class CountryDataSourceImpl implements CountryDataSource {
       if (!country)
         throw CustomError.badRequest(`Country with id ${id} not found.`);
 
-      const countryUpdated = await CountryModel.findByIdAndUpdate(id, updateCountryDto, {returnDocument: 'after'});
-      console.log(typeof countryUpdated);
+      const countryUpdated = await CountryModel.findByIdAndUpdate(
+        id,
+        updateCountryDto,
+        { returnDocument: "after" }
+      );
+      
       // TODO: check was countryUpdated return, to create a correct mapper.
       return CountryMapper.CountryEntityFromObject(countryUpdated);
-
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;
@@ -90,7 +93,6 @@ export class CountryDataSourceImpl implements CountryDataSource {
 
       // TODO: check was deletedCountry return, to create a correct mapper.
       return CountryMapper.CountryEntityFromObject(country);
-
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;

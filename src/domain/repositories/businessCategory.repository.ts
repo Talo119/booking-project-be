@@ -7,7 +7,7 @@ export abstract class BusinessCategoryRepository {
     createBusinessCategoryDto: CreateBusinessCategoryDto
   ): Promise<BusinessCategoryEntity>;
   abstract getAll(): Promise<BusinessCategoryEntity[]>;
-  abstract getAll(id: string): Promise<BusinessCategoryEntity>;
+  abstract getById(id: string): Promise<BusinessCategoryEntity>;
   abstract updateById(
     updateBusinessCategoryDto: UpdateBusinessCategoryDto
   ): Promise<BusinessCategoryEntity>;

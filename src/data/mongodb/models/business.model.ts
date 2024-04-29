@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const businessSchema = new Schema({
     name: {
@@ -22,4 +22,6 @@ const businessSchema = new Schema({
         ref: 'User',
         required: true,
     }
-})
+});
+
+export const BusinessModel = mongoose.model('Business', businessSchema);

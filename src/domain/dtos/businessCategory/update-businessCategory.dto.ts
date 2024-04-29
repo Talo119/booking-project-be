@@ -8,7 +8,7 @@ export class UpdateBusinessCategoryDto {
   get values() {
     const returnObj: { [key: string]: any } = {};
     if (this.name) returnObj.name = this.name;
-    if (this.available) returnObj.name = this.available;
+    if (this.available) returnObj.available = this.available;
     return returnObj;
   }
 

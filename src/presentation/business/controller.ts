@@ -3,6 +3,7 @@ import {
   BusinessRepository,
   CreateBusinessDto,
   CustomError,
+  UpdateBusinessDto,
 } from "../../domain";
 
 export class BusinessController {
@@ -54,4 +55,36 @@ export class BusinessController {
       throw CustomError.internalServer();
     }
   };
+  public updateBusiness = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const [error, updateBusinessDto] = UpdateBusinessDto.create({
+        ...req.body,
+        id,
+      });
+      if (error) return res.status(400).json({ error });
+      if (!updateBusinessDto) throw CustomError.badRequest("Bad request");
+      const updatedBusiness = await this.businessRepository.updateById(
+        updateBusinessDto
+      );
+      res.json(updatedBusiness);
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
+  };
+  public deleteBusiness = async (req: Request, res: Response) =>{
+    try {
+        const id = req.params.id;
+        const deletedBusiness = await this.businessRepository.deleteById(id);
+        return res.json(deletedBusiness);
+    } catch (error) {
+        if (error instanceof CustomError) {
+            throw error;
+          }
+          throw CustomError.internalServer();
+    }
+  }
 }

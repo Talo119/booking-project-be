@@ -53,7 +53,7 @@ export class BusinessCategoryController {
       const newBusinessCategory = await this.businessCategoryRepository.create(
         createBusinessCategoryDto
       );
-      res.json(newBusinessCategory);
+      return res.json(newBusinessCategory);
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;
@@ -77,7 +77,7 @@ export class BusinessCategoryController {
         await this.businessCategoryRepository.updateById(
           updateBusinessCategoryDto
         );
-      res.json(updatedBusinesCategory);
+      return res.json(updatedBusinesCategory);
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;
@@ -92,7 +92,7 @@ export class BusinessCategoryController {
       const deletedCategory = await this.businessCategoryRepository.deleteById(
         id
       );
-      res.json(deletedCategory);
+      return res.json(deletedCategory);
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;

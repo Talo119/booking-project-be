@@ -75,16 +75,16 @@ export class BusinessController {
       throw CustomError.internalServer();
     }
   };
-  public deleteBusiness = async (req: Request, res: Response) =>{
+  public deleteBusiness = async (req: Request, res: Response) => {
     try {
-        const id = req.params.id;
-        const deletedBusiness = await this.businessRepository.deleteById(id);
-        return res.json(deletedBusiness);
+      const id = req.params.id;
+      const deletedBusiness = await this.businessRepository.deleteById(id);
+      return res.json(deletedBusiness);
     } catch (error) {
-        if (error instanceof CustomError) {
-            throw error;
-          }
-          throw CustomError.internalServer();
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
     }
-  }
+  };
 }

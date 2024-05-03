@@ -3,6 +3,7 @@ import { AuthRoutes } from "./auth/routes";
 import { CountryRoutes } from "./country/routes";
 import { BusinessCategoryRoutes } from "./businessCategory/routes";
 import { BusinessRoutes } from "./business/routes";
+import { WorkspacesRoutes } from "./workspace/routes";
 
 
 export class AppRoutes {
@@ -13,6 +14,7 @@ export class AppRoutes {
         router.use('/api/country', CountryRoutes.routes);
         router.use('/api/businessCategory', BusinessCategoryRoutes.routes);
         router.use('/api/business', BusinessRoutes.routes);
+        router.use('/api/workspace', WorkspacesRoutes.routes);
 
         return router;
     }

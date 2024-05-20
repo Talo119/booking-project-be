@@ -5,7 +5,7 @@ export class BcryptAdapter {
         return hashSync(password);
     }
 
-    static compate(password: string, hashed:string): boolean {
+    static compare(password: string, hashed:string): boolean {
         return compareSync(password, hashed);
     }
 }

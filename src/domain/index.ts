@@ -1,6 +1,7 @@
 
 
 export * from './dtos/auth/register-user.dto';
+export * from './dtos/auth/register-user.dto'
 export * from './dtos/country/create-country.dto';
 export * from './dtos/country/update-country.dto';
 export * from './dtos/businessCategory/create-businessCategory.dto';

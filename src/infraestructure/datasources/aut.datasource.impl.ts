@@ -15,16 +15,17 @@ type CompareFunction = (password: string, hashed: string) => boolean;
 export class AuthDatasourceImpl implements AuthDatasource {
   constructor(
     private readonly hashPassword: HashFunction = BcryptAdapter.hash,
-    private readonly comparePassword: CompareFunction = BcryptAdapter.compare,
+    private readonly comparePassword: CompareFunction = BcryptAdapter.compare
   ) {}
   async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
-    const {email, password} = loginUserDto;
+    const { email, password } = loginUserDto;
     try {
-      const user = await UserModel.findOne({email: email});
-      if(!user) throw CustomError.badRequest('User don´t exists.');
+      const user = await UserModel.findOne({ email: email }).exec();
+      if (!user) throw CustomError.badRequest("User do not exists.");
 
       const validPassword = this.comparePassword(password, user.password);
-      if(!validPassword) throw CustomError.badRequest('Email or password invalid.');
+      if (!validPassword)
+        throw CustomError.badRequest("Email or password invalid.");
 
       return UserMapper.UserEntityFromObject(user);
     } catch (error) {
@@ -36,7 +37,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
   }
   async getAllUsers(): Promise<UserEntity[]> {
     try {
-      const users = await UserModel.find().populate("country");
+      const users = await UserModel.find().populate("country").exec();
       console.log("users", users);
       return users.map((user) => UserMapper.UserEntityFromObject(user));
     } catch (error) {
@@ -66,7 +67,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
     const { name, email, password, img, country, roles } = registerUserDto;
 
     try {
-      const isUserExists = await UserModel.findOne({ email: email });
+      const isUserExists = await UserModel.findOne({ email: email }).exec();
       if (isUserExists) throw CustomError.badRequest("User already exists.");
 
       const user = await UserModel.create({

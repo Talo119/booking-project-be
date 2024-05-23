@@ -56,6 +56,7 @@ export class AuthController {
         id: user.id,
         email: user.email,
         name: user.name,
+        roles: user.roles,
         token,
       });
     } catch (error) {

@@ -12,7 +12,7 @@ export class UserMapper{
         if(!name) throw CustomError.badRequest('Missing name');
         if(!email) throw CustomError.badRequest('Missing email');
         if(!password) throw CustomError.badRequest('Missing password');
-        if(!img) throw CustomError.badRequest('Missing img');
+        // if(!img) throw CustomError.badRequest('Missing img');
         if(!country) throw CustomError.badRequest('Missing country');
         if(!roles) throw CustomError.badRequest('Missing roles');
 
